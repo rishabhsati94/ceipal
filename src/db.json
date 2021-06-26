@@ -1,0 +1,58 @@
+{
+  "login": [
+    {
+      "id": 1,
+      "name": "Aryan",
+      "email": "araj60988@gmail.com",
+      "password": "Raj@6098",
+      "cpassword": "Raj@6098"
+    },
+    {
+      "id": 2,
+      "name": "Aryan",
+      "email": "araj32803@gmail.com",
+      "password": "Aryan@6098",
+      "cpassword": "Aryan@6098"
+    },
+    {
+      "name": "Aryan",
+      "email": "araj60988@gmail.com",
+      "phone": "8264984525",
+      "password": "Shuddu@123",
+      "cpassword": "Shuddu@123",
+      "id": 3
+    },
+    {
+      "name": "Zoya",
+      "email": "zoya@gnail.com",
+      "phone": "8264984525",
+      "password": "Zoya@123",
+      "cpassword": "Zoya@123",
+      "id": 4
+    },
+    {
+      "name": "Payal",
+      "email": "payal@gmail.com",
+      "phone": "8264984525",
+      "password": "Payal@123",
+      "cpassword": "Payal@123",
+      "id": 5
+    },
+    {
+      "name": "Peter",
+      "email": "peter@gmail.com",
+      "phone": "8264984525",
+      "password": "Peter@123",
+      "cpassword": "Peter@123",
+      "id": 6
+    },
+    {
+      "name": "Swayam",
+      "email": "swayam98@gmail.com",
+      "phone": "9685741425",
+      "password": "Swayam@123",
+      "cpassword": "Swayam@123",
+      "id": 7
+    }
+  ]
+}
