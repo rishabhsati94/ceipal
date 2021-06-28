@@ -1,35 +1,60 @@
 import { React, useState } from "react";
-import login1 from "../images/login1.png";
-import "../css/sign.css";
-import "../css/login.css";
+import login1 from "../../images/login1.png";
+import "../../css/Login_Signup/sign.css";
+import "../../css/Login_Signup/login.css";
 import Details from "./Details";
 import { Link } from "react-router-dom";
-import eye from "../images/eye.png";
+import eye from "../../images/eye.png";
 import { useHistory } from "react-router";
 
-export default function SignUpp() {
+export default function SignUp() {
   const [eyeImg, setEyeImg] = useState(false);
   const [eyeImg1, setEyeImg1] = useState(false);
 
-  //State for Validation Purpose
-  const [userErr, setUserErr] = useState("");
-  const [emailErr, setEmailErr] = useState("");
-  const [phoneErr, setPhoneErr] = useState("");
-  const [passErr, setPassErr] = useState("");
-  const [cPassErr, setCPassErr] = useState("");
-  //State for Form field
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [cpassword, setCpassword] = useState("");
-
   const history = useHistory();
+
+  const [value, setValue] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    cpassword: "",
+  });
+
+  const inputText = (e) => {
+    const { name, value } = e.target;
+
+    setValue((preValue) => {
+      return {
+        ...preValue,
+        [name]: value,
+      };
+    });
+  };
+
+  //State for Validation Purpose
+  const [userErr, setUserErr] = useState();
+  const [emailErr, setEmailErr] = useState();
+  const [phoneErr, setPhoneErr] = useState();
+  const [passErr, setPassErr] = useState();
+  const [cPassErr, setCPassErr] = useState();
 
   let name_Ch = /^([a-zA-Z\s]){2,15}$/;
   let email_ch = /^([_\-.0-9a-zA-Z]+)@([a-zA-Z]+)\.([a-zA-Z]){2,7}$/;
   let phone_ch = /([+\-0-9]){10,14}$/;
+
   function valid() {
+    let convDataToArray = Object.values(value);
+    let [name, email, phone, password, cpassword] = [
+      convDataToArray[0],
+      convDataToArray[1],
+      convDataToArray[2],
+      convDataToArray[3],
+      convDataToArray[4],
+    ];
+
+    // console.log(name, email, phone, password, cpassword);
+
     if (
       !name_Ch.exec(name) &&
       !email_ch.exec(email) &&
@@ -59,27 +84,30 @@ export default function SignUpp() {
     }
   }
 
-  function submit() {
+  function submitForm(e) {
+    e.preventDefault();
+
+    let date = new Date();
+    let todaydate = date.toString();
+
     if (valid()) {
-      let data = { name, email, phone, password, cpassword };
       fetch("http://localhost:4000/login", {
         method: "POST",
-        body: JSON.stringify(data),
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-      }).then((result) => {
-        result.json().then((resp) => {
-          console.log("result json:" + resp);
-        });
-      });
+        body: JSON.stringify(value),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // console.log(data)
+          // console.log("Register");
+        })
+        .catch((error) => console.error(error));
 
       history.push("/");
     }
-  }
-  function formHandler(e) {
-    e.preventDefault();
   }
 
   return (
@@ -91,17 +119,18 @@ export default function SignUpp() {
           <div className="leftSide">
             <div className="sign">
               <img src={login1} alt="loginImage" />
-              <form onSubmit={formHandler}>
+              <form onSubmit={submitForm}>
                 <input
                   type="text"
                   name="name"
                   placeholder="Enter User Name"
-                  onChange={(event) => {
-                    setName(event.target.value);
-                  }}
-                  value={name}
+                  onChange={inputText}
+                  value={value.name}
                   autoComplete="off"
                   required
+                  onFocus={() => {
+                    setUserErr(true);
+                  }}
                 />
                 {userErr ? (
                   <>
@@ -114,13 +143,14 @@ export default function SignUpp() {
                 <input
                   type="email"
                   placeholder="Enter email"
-                  onChange={(event) => {
-                    setEmail(event.target.value);
-                  }}
+                  onChange={inputText}
                   name="email"
-                  value={email}
+                  value={value.email}
                   autoComplete="off"
                   required
+                  onFocus={() => {
+                    setEmailErr(true);
+                  }}
                 />
                 {emailErr ? (
                   <>
@@ -133,13 +163,14 @@ export default function SignUpp() {
                 <input
                   type="text"
                   placeholder="Enter Phone Number"
-                  onChange={(event) => {
-                    setPhone(event.target.value);
-                  }}
+                  onChange={inputText}
                   name="phone"
-                  value={phone}
+                  value={value.phone}
                   autoComplete="off"
                   required
+                  onFocus={() => {
+                    setPhoneErr(true);
+                  }}
                 />
                 {phoneErr ? (
                   <>
@@ -152,14 +183,16 @@ export default function SignUpp() {
                 <input
                   type={eyeImg ? "text" : "password"}
                   placeholder="Password"
-                  onChange={(event) => {
-                    setPassword(event.target.value);
-                  }}
+                  onChange={inputText}
                   name="password"
-                  value={password}
+                  value={value.password}
                   autoComplete="off"
                   required
+                  onFocus={() => {
+                    setPassErr(true);
+                  }}
                 />
+
                 <img
                   src={eye}
                   alt="eyeImage"
@@ -182,13 +215,14 @@ export default function SignUpp() {
                 <input
                   type={eyeImg1 ? "text" : "password"}
                   placeholder="Password"
-                  onChange={(event) => {
-                    setCpassword(event.target.value);
-                  }}
+                  onChange={inputText}
                   name="cpassword"
-                  value={cpassword}
+                  value={value.cpassword}
                   autoComplete="off"
                   required
+                  onFocus={() => {
+                    setCPassErr(true);
+                  }}
                 />
                 <img
                   src={eye}
@@ -209,8 +243,9 @@ export default function SignUpp() {
                   </>
                 ) : null}
 
-                <button className="signbtn" type="submit" onClick={submit}>
-                  Register
+                <button className="signbtn" type="submit">
+                  {" "}
+                  Register{" "}
                 </button>
               </form>
             </div>

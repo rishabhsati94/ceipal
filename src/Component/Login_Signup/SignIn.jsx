@@ -1,18 +1,19 @@
 import { React, useState, useEffect } from "react";
-import "../css/sign.css";
-import "../css/login.css";
+import "../../css/Login_Signup/sign.css";
+import "../../css/Login_Signup/login.css";
 import Details from "./Details";
-import login1 from "../images/login1.png";
+import login1 from "../../images/login1.png";
 import { Link, Redirect, useHistory } from "react-router-dom";
-import eye from "../images/eye.png";
+import eye from "../../images/eye.png";
 
 export default function SignIn() {
+  const [userErr, setUserErr] = useState();
   const [eyeImg, setEyeImg] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [resData, upateResdata] = useState(false);
   const [isLoggedIn, updateIsLoggedIn] = useState(false);
-  const history = useHistory();
+  // const history = useHistory();
 
   const token = localStorage.getItem("user-info");
   let loggedIn = true;
@@ -48,7 +49,8 @@ export default function SignIn() {
         }
       }
       if (flag == false) {
-        alert("Not Registred");
+        // alert("Not Registred");
+        setUserErr("your email address or password is not correct");
       }
     } else {
       alert("Data Not Found");
@@ -89,11 +91,19 @@ export default function SignIn() {
                   type="email"
                   placeholder="Enter email"
                   onChange={(e) => setEmail(e.target.value)}
+                  required
+                  onFocus={() => {
+                    setUserErr(true);
+                  }}
                 />
                 <input
                   type={eyeImg ? "text" : "password"}
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
+                  required
+                  onFocus={() => {
+                    setUserErr(true);
+                  }}
                 />
                 <img
                   src={eye}
@@ -106,7 +116,13 @@ export default function SignIn() {
                     cursor: "pointer",
                   }}
                 />
-
+                {userErr ? (
+                  <>
+                    <span style={{ color: "red", fontSize: "1.5rem" }}>
+                      {userErr}
+                    </span>
+                  </>
+                ) : null}
                 <button className="signbtn" type="submit" onClick={login}>
                   SIGN IN
                 </button>
