@@ -27,14 +27,11 @@ class Navbarcomp extends Component {
   }
 
   render() {
-    // if (this.state.isLogout == true) {
-    //   <Redirect to="/" />;
-    // }
     return (
       <div>
         {this.state.isLogout ? <Redirect to="/" /> : null}
         <>
-          <Navbar class="navbar" variant="dark">
+          <Navbar className="navbar" variant="dark">
             <Navbar.Brand href="/#">
               <img
                 id="img"
@@ -95,8 +92,22 @@ class Navbarcomp extends Component {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item id="title">Quick Links</Dropdown.Item>
-                  <Dropdown.Item href="#">Submit Timesheet</Dropdown.Item>
-                  <Dropdown.Item href="#">Submit Bulk Timesheet</Dropdown.Item>
+                  <Dropdown.Item>
+                    <Link
+                      to="./submit_timesheet"
+                      style={{ textDecoration: "none" }}
+                    >
+                      Submit Timesheet
+                    </Link>
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <Link
+                      to="./submit_bulk_timesheet"
+                      style={{ textDecoration: "none" }}
+                    >
+                      Submit Bulk Timesheet
+                    </Link>
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
 
@@ -109,7 +120,7 @@ class Navbarcomp extends Component {
                     <CgProfile />
                   </Dropdown.Toggle>
 
-                  <Dropdown.Menu>
+                  <Dropdown.Menu style={{ width: "auto" }}>
                     <Dropdown.Item id="profile-title">
                       <b>Employee Name </b> <br />
                       (Executive)
@@ -145,13 +156,5 @@ class Navbarcomp extends Component {
     );
   }
 }
-
-// function search() {
-
-//     <div class="searchbox">
-//         <input type="text" placeholder="search here"></input>
-//       </div>
-
-// }
 
 export default Navbarcomp;

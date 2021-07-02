@@ -30,7 +30,7 @@ function EssNav() {
                   <AiOutlineHome />
                   &nbsp;&nbsp;Home
                 </Dropdown.Item>
-                <Dropdown.Item href="/essnav">
+                <Dropdown.Item href="/essrequest">
                   <AiOutlineCheckSquare />
                   &nbsp;&nbsp;Ess
                 </Dropdown.Item>
