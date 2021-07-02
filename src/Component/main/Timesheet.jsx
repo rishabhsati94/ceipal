@@ -1,62 +1,66 @@
-import React from "react";
-import Navbarcomp from "./Navbarcomp";
-import "../../css/main/Navcom.css";
-import Footer from "./Footer";
-import {
-  Navbar,
-  Nav,
-  Form,
-  Dropdown,
-  Col,
-  Container,
-  Row,
-  FormControl,
-  Button,
-} from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { React, useState } from "react";
+import Navbarcomp from "./Navbarcomp";
+import { Tabs, Tab } from "react-bootstrap";
+import MyTimeSheet from "./Timesheets/MyTimeSheet";
+import MyDueTimeSheet from "./Timesheets/MyDueTimeSheet";
+import Footer from "./Footer";
+import "../../css/main/timesheet.css";
+import "../../css/main/Navcom.css";
+import WorkList from "./Timesheets/WorkList";
+import AllTimeSheets from "./Timesheets/AllTimeSheets";
+export default function Timesheet() {
+  const [key, setKey] = useState("mytimesheet");
 
-export default function () {
   return (
     <>
-      <div>
-        <Navbarcomp search />
-      </div>
+      <Navbarcomp search />
+      <section className=" container.fluid timesheets ">
+        <div>
+          <div className="timesheetfirst">
+            <Link to="/timesheet" className="timesheetfirstPart">
+              Timesheets List
+            </Link>
+          </div>
 
-      <div className="timesheetfirst">
-        <Link to="/timesheet" className="timesheetfirstPart">
-          Timesheets List
-        </Link>
-      </div>
-
-      <div className="timesheetcompo">
-        <div className="timesheetlist">
-          <ul>
-            <li>
-              <Link to="/timesheet">My Timesheets</Link>
-            </li>
-            <li>
-              <Link to="/timesheet">My Due Timesheets</Link>
-            </li>
-            <li>
-              <Link to="/timesheet">Work List</Link>
-            </li>
-            <li>
-              <Link to="/timesheet">All Timesheets</Link>
-            </li>
-          </ul>
+          <div className="container.fluid ml-4 mr-4 timesheetcompo">
+            <div className="timesheetlist">
+              <Tabs
+                style={{ borderTop: "none" }}
+                activeKey={key}
+                onSelect={(k) => setKey(k)}
+              >
+                <Tab
+                  className="timesheetnames"
+                  eventKey="mytimesheet"
+                  title="My Time Sheet"
+                >
+                  <MyTimeSheet />
+                </Tab>
+                <Tab eventKey="myduetimesheet" title="My Due Time Sheet">
+                  <MyDueTimeSheet />
+                </Tab>
+                <Tab
+                  className="timesheetnames"
+                  eventKey="worklist"
+                  title="Work List"
+                >
+                  <WorkList />
+                </Tab>
+                <Tab
+                  className="timesheetnames"
+                  eventKey="alltimesheets"
+                  title="All Time Sheet"
+                >
+                  <AllTimeSheets />
+                </Tab>
+              </Tabs>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <hr className="borderline" />
-      <Container>
-        <Row>
-          <Col>1</Col>
-          <Col>2</Col>
-          <Col>3</Col>
-          <Col>4</Col>
-          <Col>5</Col>
-        </Row>
-      </Container>
+      <Footer />
     </>
   );
 }

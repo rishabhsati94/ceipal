@@ -10,6 +10,9 @@ import Timesheet from "./Component/main/Timesheet";
 import EssRequest from "./Component/main/ESS/EssRequest";
 import SignIn from "./Component/Login_Signup/SignIn";
 import SignUp from "./Component/Login_Signup/SignUp";
+import SubmitBulkTimesheet from "./Component/main/SubmitBulkTimesheet";
+import SubmitTimeSheet from "./Component/main/SubmitTimeSheet";
+
 function App() {
   return (
     <>
@@ -31,6 +34,16 @@ function App() {
         <Route exact path="/timesheet" component={Timesheet}></Route>
 
         <Route exact path="/requestdetails" component={RequestDetails}></Route>
+        <Route
+          exact
+          path="/submit_bulk_timesheet"
+          component={SubmitBulkTimesheet}
+        ></Route>
+        <Route
+          exact
+          path="/submit_timesheet"
+          component={SubmitTimeSheet}
+        ></Route>
       </Switch>
 
       <Footer />
